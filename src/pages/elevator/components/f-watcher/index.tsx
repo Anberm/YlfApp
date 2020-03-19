@@ -35,7 +35,7 @@ export default function FWatcher() {
         <Decoration11 style={{ height: '80px' }}>请直视摄像头</Decoration11>
       </div>
       <div className="w-flex">
-        <Decoration9 style={{ width: '500px', height: '500px' }} dur={4}>
+        <Decoration9 style={{ width: '400px', height: '400px' }} dur={4}>
           <div>
             <video ref={videoRef} autoPlay playsInline />
           </div>
