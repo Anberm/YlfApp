@@ -12,6 +12,9 @@ declare module '*.bmp';
 declare module '*.tiff';
 declare module 'omit.js';
 
+declare module '@jiaminghi/data-view-react';
+declare module '@jiaminghi/data-view-react/*';
+
 // google analytics interface
 interface GAFieldsObject {
   eventCategory: string;
