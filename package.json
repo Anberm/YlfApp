@@ -32,9 +32,7 @@
     "ui": "umi ui"
   },
   "husky": {
-    "hooks": {
-      
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
@@ -57,6 +55,8 @@
     "antd": "^4.0.0-rc.1",
     "classnames": "^2.2.6",
     "dva": "^2.6.0-beta.16",
+    "electron": "^8.1.1",
+    "electron-builder": "^22.4.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "omit.js": "^1.0.2",

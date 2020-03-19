@@ -31,13 +31,16 @@ export default function FWatcher() {
   }, []);
   return (
     <div className="watcher">
-      <Decoration11 style={{ height: '80px' }}>请直视摄像头</Decoration11>
-
-      <Decoration9 style={{ width: '500px', height: '500px' }} dur={4}>
-        <div>
-          <video ref={videoRef} autoPlay playsInline />
-        </div>
-      </Decoration9>
+      <div>
+        <Decoration11 style={{ height: '80px' }}>请直视摄像头</Decoration11>
+      </div>
+      <div className="w-flex">
+        <Decoration9 style={{ width: '500px', height: '500px' }} dur={4}>
+          <div>
+            <video ref={videoRef} autoPlay playsInline />
+          </div>
+        </Decoration9>
+      </div>
     </div>
   );
 }
