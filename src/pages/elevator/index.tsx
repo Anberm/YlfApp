@@ -1,20 +1,18 @@
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React, { useState, useEffect } from 'react';
-import { Spin } from 'antd';
+import FullScreenContainer from '@jiaminghi/data-view-react/es/fullScreenContainer';
+import React from 'react';
+import FWatcher from './components/f-watcher';
+import FKeyboard from './components/keyboard';
 import styles from './index.less';
 
-export default () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-  return (
-    <PageHeaderWrapper content="这是一个新页面，从这里进行开发！" className={styles.main}>
-      <div style={{ paddingTop: 100, textAlign: 'center' }}>
-        <Spin spinning={loading} size="large" />
+export default () => (
+  <FullScreenContainer className={styles.elevator}>
+    <div className={styles.elevator_flex}>
+      <div className={styles.elevator_left}>
+        <FWatcher />
       </div>
-    </PageHeaderWrapper>
-  );
-};
+      <div className={styles.elevator_right}>
+        <FKeyboard />
+      </div>
+    </div>
+  </FullScreenContainer>
+);
