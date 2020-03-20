@@ -36,7 +36,7 @@ function initialize() {
     }
 
     if (process.platform === 'linux') {
-      windowOptions.icon = path.join(__dirname, '/assets/AR-09.png')
+      windowOptions.icon = path.join(__dirname, '/assets/app-icon/linux/512.png')
     }
 
     mainWindow = new BrowserWindow(windowOptions)
