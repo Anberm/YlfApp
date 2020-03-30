@@ -1,0 +1,44 @@
+{
+  "productName": "airport",
+  "appId": "com.ylf.elevator",
+  "artifactName": "${productName}-${version}.${ext}",
+  "directories": {
+    "output": "builds",
+    "buildResources": "resources"
+  },
+  "files": ["package.json", "resources", "dist", "Addon", "assets", "main.js", "cli.js"],
+  "publish": {
+    "provider": "generic",
+    "url": "http://app.zcloudx.com/update/ylfapp"
+  },
+  "asar": false,
+  "mac": {
+    "category": "public.app-category.productivity"
+  },
+  "nsis": {
+    "oneClick": true,
+    "allowToChangeInstallationDirectory": false,
+    "createDesktopShortcut": true,
+    "differentialPackage": true
+  },
+  "dmg": {
+    "contents": [{
+        "x": 110,
+        "y": 150
+      },
+      {
+        "x": 240,
+        "y": 150,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ]
+  },
+  "win": {
+    "target": ["nsis"]
+  },
+  "linux": {
+    "category": "Graphics",
+    "target": ["deb", "tar.gz", "AppImage"]
+  }
+}

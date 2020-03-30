@@ -18,10 +18,11 @@ function getInstallerConfig () {
 
   return Promise.resolve({
     appDirectory: path.join(outPath, 'wisdomelevator-win32-x64'),
-    exe: 'Wisdom elevator.exe',
+    exe: 'WisdomElevator.exe',
     iconUrl: path.join(rootPath, 'assets', 'app-icon', 'win','app.ico'),
     // loadingGif: path.join(rootPath, 'assets', 'img', 'loading.gif'),
     noMsi: true,
+    authors:'Anber<shuangyan_m@hotmail.com>',
     outputDirectory: path.join(outPath, 'windows-installer'),
     setupExe: 'WisdomElevator.exe',
     setupIcon: path.join(rootPath, 'assets', 'app-icon', 'win', 'app.ico'),

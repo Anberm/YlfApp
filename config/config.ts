@@ -74,10 +74,12 @@ if (isAntDesignProPreview) {
   ]);
   plugins.push(['umi-plugin-antd-theme', themePluginConfig]);
 }
-
+// [/config/,/mock/,/public/,/src/,/tests/]
+// ['/config/','/mock/','/public/','/src/','/tests/']
 export default {
   plugins,
   hash: true,
+  // outputPath:'app/dist',
   targets: {
     ie: 11,
   },

@@ -12,6 +12,7 @@ const {
 } = require('electron')
 
 const debug = /--debug/.test(process.argv[2])
+const dev = /--dev/.test(process.argv[2])
 
 if (process.mas) app.setName('Wisdom elevator')
 
@@ -40,8 +41,11 @@ function initialize() {
     }
 
     mainWindow = new BrowserWindow(windowOptions)
-    // mainWindow.loadURL(path.join('file://', __dirname, '/index.html'))
-    mainWindow.loadURL('http://localhost:5006')
+    if (dev) {
+      mainWindow.loadURL('http://localhost:5006')
+    } else {
+      mainWindow.loadURL(path.join('file://', __dirname, '/dist/index.html'))
+    }
 
     // Launch fullscreen with DevTools open, usage: npm run debug
     if (debug) {
@@ -54,7 +58,9 @@ function initialize() {
       mainWindow = null
     })
   }
-
+  app.commandLine.appendSwitch('ignore-certificate-errors');
+  app.commandLine.appendSwitch('allow-running-insecure-content');
+  app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required');
   app.on('ready', () => {
     createWindow()
   })
@@ -101,3 +107,6 @@ function loadScripts() {
 }
 
 initialize()
+// Share process arguments
+global.arguments = process.argv;
+require('./main/update');
