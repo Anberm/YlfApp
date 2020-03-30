@@ -3,7 +3,8 @@
 // require('update-electron-app')({
 //     logger: require('electron-log')
 //   })
-
+const electron = require('electron')
+const { app, BrowserWindow, ipcMain } = electron
 const path = require('path')
 const glob = require('glob')
 const {
@@ -16,6 +17,13 @@ const dev = /--dev/.test(process.argv[2])
 
 if (process.mas) app.setName('Wisdom elevator')
 
+if (dev) {
+  require('electron-reload')(__dirname, {
+    ignored: /node_modules|update|msc|tmp|logs.log|assets|[\/\\]\./,
+    argv: [],
+  });
+}
+
 let mainWindow = null
 
 function initialize() {
@@ -25,9 +33,10 @@ function initialize() {
 
   function createWindow() {
     const windowOptions = {
+      icon:path.join(__dirname, '/resources/icons/512.png'),
       width: 1024,
       height: 768,
-      fullscreen: true,
+      fullscreen: false,
       center: true,
       // resizable: false,
       title: app.getName(),
@@ -36,11 +45,9 @@ function initialize() {
       }
     }
 
-    if (process.platform === 'linux') {
-      windowOptions.icon = path.join(__dirname, '/assets/app-icon/linux/512.png')
-    }
-
     mainWindow = new BrowserWindow(windowOptions)
+    mainWindow.setMenu(null)
+
     if (dev) {
       mainWindow.loadURL('http://localhost:5006')
     } else {
@@ -109,4 +116,4 @@ function loadScripts() {
 initialize()
 // Share process arguments
 global.arguments = process.argv;
-require('./main/update');
+require('./scripts/update');
