@@ -14,7 +14,7 @@
   "scripts": {
     "postinstall": "./node_modules/.bin/electron-rebuild --target=8.1.1",
     "analyze": "cross-env ANALYZE=1 umi build",
-    "build": "umi build",
+    "build": "cross-env UMI_ENV=prod umi build",
     "start": "umi dev",
     "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none umi dev",
     "start:no-mock": "cross-env MOCK=none umi dev",
@@ -64,7 +64,8 @@
     "electron-log": "4.1.0",
     "electron-shortcut-normalizer": "^1.0.0",
     "electron-updater": "4.2.5",
-    "glob": "^7.1.6"
+    "glob": "^7.1.6",
+    "node-hid": "^1.2.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.0.0-alpha.19",

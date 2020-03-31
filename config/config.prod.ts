@@ -80,6 +80,8 @@ export default {
   plugins,
   hash: true,
   base:'./',
+  publicPath:'./',
+  history:'hash',
   // outputPath:'app/dist',
   targets: {
     ie: 11,

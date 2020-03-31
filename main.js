@@ -12,7 +12,10 @@ const {
 const path = require('path')
 const glob = require('glob')
 const AutoLaunch = require('auto-launch')
-const log = require('electron-log');
+const log = require('electron-log')
+const HID = require('node-hid')
+
+console.log("HID devices:",HID.devices())
 
 const args = process.argv.slice(1)
 const debug = args.some(val => val === '--debug')
@@ -33,10 +36,10 @@ function initialize() {
       icon: path.join(__dirname, '/resources/icons/512.png'),
       width: 1024,
       height: 768,
-      maxWidth: 1024,
-      minWidth: 1024,
-      maxHeight: 768,
-      minHeight: 768,
+      // maxWidth: 1024,
+      // minWidth: 1024,
+      // maxHeight: 768,
+      // minHeight: 768,
       fullscreen: false,
       center: true,
       // resizable: false,
@@ -53,7 +56,7 @@ function initialize() {
     } else {
       mainWindow.loadURL(path.join('file://', __dirname, '/dist/index.html'))
     }
-    if (dev) {
+    if (dev||debug) {
       mainWindow.webContents.openDevTools();
     }
 
