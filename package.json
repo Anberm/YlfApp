@@ -21,10 +21,10 @@
     "start:no-ui": "cross-env UMI_UI=none umi dev",
     "start:pre": "cross-env REACT_APP_ENV=pre umi dev",
     "start:test": "cross-env REACT_APP_ENV=test MOCK=none umi dev",
-    "el:dev": "electron . --debug",
+    "el:dev": "electron . --dev",
     "el:watch": "cross-env PORT=5006 umi dev",
     "el": "npm-run-all el:watch el:dev",
-    "pack": "npm run build && electron-builder --win --dir",
+    "pack": "electron-builder --dir",
     "electron-builder": "electron-builder --win",
     "release": "npm run build && electron-builder --win",
     "test": "umi test",
@@ -126,9 +126,6 @@
     "umi-types": "^0.5.9",
     "update-electron-app": "^1.5.0",
     "use-merge-value": "^1.0.1"
-  },
-  "optionalDependencies": {
-    "puppeteer": "^2.0.0"
   },
   "engines": {
     "node": ">=10.0.0"

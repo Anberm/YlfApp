@@ -79,6 +79,7 @@ if (isAntDesignProPreview) {
 export default {
   plugins,
   hash: true,
+  base:'./',
   // outputPath:'app/dist',
   targets: {
     ie: 11,

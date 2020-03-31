@@ -33,10 +33,13 @@ function initialize() {
       icon: path.join(__dirname, '/resources/icons/512.png'),
       width: 1024,
       height: 768,
+      maxWidth: 1024,
+      minWidth: 1024,
+      maxHeight: 768,
+      minHeight: 768,
       fullscreen: false,
       center: true,
       // resizable: false,
-      title: app.getName(),
       webPreferences: {
         nodeIntegration: true
       }
@@ -49,6 +52,9 @@ function initialize() {
       mainWindow.loadURL('http://localhost:5006')
     } else {
       mainWindow.loadURL(path.join('file://', __dirname, '/dist/index.html'))
+    }
+    if (dev) {
+      mainWindow.webContents.openDevTools();
     }
 
     // Launch fullscreen with DevTools open, usage: npm run debug
