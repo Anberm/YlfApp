@@ -1,12 +1,12 @@
 {
-  "productName": "airport",
+  "productName": "YlfWisdomelEvator",
   "appId": "com.ylf.elevator",
   "artifactName": "${productName}-${version}.${ext}",
   "directories": {
     "output": "builds",
     "buildResources": "resources"
   },
-  "files": ["package.json", "resources", "dist", "Addon", "assets", "main.js", "cli.js"],
+  "files": ["package.json", "resources", "dist", "scripts","Addon", "main.js", "cli.js"],
   "publish": {
     "provider": "generic",
     "url": "http://app.zcloudx.com/update/ylfapp"

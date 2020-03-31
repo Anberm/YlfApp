@@ -55,7 +55,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'Ylf App',
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

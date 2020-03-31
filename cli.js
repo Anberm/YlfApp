@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+/* eslint-disable import/no-extraneous-dependencies */
 const {spawn} = require('child_process')
 const electron = require('electron')
 const path = require('path')

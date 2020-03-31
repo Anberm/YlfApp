@@ -1,28 +1,25 @@
 /* eslint-disable import/no-dynamic-require */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
-// require('update-electron-app')({
-//     logger: require('electron-log')
-//   })
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const electron = require('electron')
-const { app, BrowserWindow, ipcMain } = electron
-const path = require('path')
-const glob = require('glob')
+
 const {
   app,
-  BrowserWindow
-} = require('electron')
+  BrowserWindow,
+  ipcMain
+} = electron
+const path = require('path')
+const glob = require('glob')
+const AutoLaunch = require('auto-launch')
+const log = require('electron-log');
 
-const debug = /--debug/.test(process.argv[2])
-const dev = /--dev/.test(process.argv[2])
+const args = process.argv.slice(1)
+const debug = args.some(val => val === '--debug')
+const dev = args.some(val => val === '--dev')
 
 if (process.mas) app.setName('Wisdom elevator')
 
-if (dev) {
-  require('electron-reload')(__dirname, {
-    ignored: /node_modules|update|msc|tmp|logs.log|assets|[\/\\]\./,
-    argv: [],
-  });
-}
 
 let mainWindow = null
 
@@ -33,7 +30,7 @@ function initialize() {
 
   function createWindow() {
     const windowOptions = {
-      icon:path.join(__dirname, '/resources/icons/512.png'),
+      icon: path.join(__dirname, '/resources/icons/512.png'),
       width: 1024,
       height: 768,
       fullscreen: false,
@@ -56,20 +53,38 @@ function initialize() {
 
     // Launch fullscreen with DevTools open, usage: npm run debug
     if (debug) {
-      mainWindow.webContents.openDevTools()
-      // mainWindow.maximize()
-      require('devtron').install()
+      require('electron-debug')();
     }
 
     mainWindow.on('closed', () => {
       mainWindow = null
     })
   }
+
+  function autoStart() {
+    const ylfAutoLaunch = new AutoLaunch({
+      name: 'YlfWisdomelEvator'
+    })
+    ylfAutoLaunch.enable() // 开机自启
+    // ylfAutoLaunch.disable()// 禁用自启
+    ylfAutoLaunch.isEnabled()
+      .then((isEnabled) => {
+        if (isEnabled) {
+          return;
+        }
+        ylfAutoLaunch.enable();
+      })
+      .catch((err) => {
+        // handle error
+        log.error('YlfWisdomelEvator err:',err)
+      });
+  }
   app.commandLine.appendSwitch('ignore-certificate-errors');
   app.commandLine.appendSwitch('allow-running-insecure-content');
-  app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required');
+  app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
   app.on('ready', () => {
     createWindow()
+
   })
 
   app.on('window-all-closed', () => {
@@ -115,5 +130,5 @@ function loadScripts() {
 
 initialize()
 // Share process arguments
-global.arguments = process.argv;
-require('./scripts/update');
+global.arguments = process.argv
+

@@ -1,41 +1,11 @@
-const electron = require("electron");
-const log4js = require('log4js');
-log4js.configure({
-  'appenders': {
-    'access': {
-      'type': 'dateFile',
-      'filename': 'log/access.log',
-      'pattern': '-yyyy-MM-dd',
-      'category': 'http'
-    },
-    'app': {
-      'type': 'file',
-      'filename': 'log/app.log',
-      'maxLogSize': 10485760,
-      'numBackups': 3
-    },
-    'errorFile': {
-      'type': 'file',
-      'filename': 'log/errors.log'
-    },
-    'errors': {
-      'type': 'logLevelFilter',
-      'level': 'ERROR',
-      'appender': 'errorFile'
-    }
-  },
-  'categories': {
-    'default': {
-      'appenders': ['app', 'errors'],
-      'level': 'DEBUG'
-    },
-    'http': {
-      'appenders': ['access'],
-      'level': 'DEBUG'
-    }
-  }
-});
-const logger = log4js.getLogger('app');
+const log = require("electron-log");// 修改日志记录的格式
 
-global.logger = logger;
+log.transports.file.level = 'info'
+log.transports.file.maxSize = 5 * 1024 * 1024
+log.transports.file.format =
+  "[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}] {text}";
+log.transports.console.format =
+  "[{h}:{i}:{s}.{ms}] [{level} {processType}] › {text}";
+
+global.logger = log;
 
