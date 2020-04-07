@@ -1,64 +1,67 @@
+import useLmWebSocket from '@/utils/hooks/use-lm-websocket';
 import BorderBox11 from '@jiaminghi/data-view-react/es/borderBox11';
-import { Carousel } from 'antd';
-import React from 'react';
+import { Carousel, Row, Col } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { chunkArray } from '@/utils/utils';
 
+const READY_STATE_OPEN = 1;
+const PAGE_SIZE = 20;
 export default function FKeyboard() {
+  const [floorList, setFloorList] = useState<any[][]>([
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+  ]);
+  const [winHeight, setWinHeight] = useState(window.innerHeight - 85);
+  const [sendMessage, lastMessage, readyState] = useLmWebSocket('wss://echo.websocket.org');
+
   const onChange = (index: number) => {
     console.log(index);
   };
 
+  useEffect(() => {
+    const listener = () => {
+      setWinHeight(window.innerHeight - 85);
+    };
+    window.addEventListener('resize', listener);
+    return () => {
+      window.removeEventListener('resize', listener);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   if (readyState === READY_STATE_OPEN) {
+  //     sendMessage(
+  //       '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]',
+  //     );
+  //   }
+  // }, [readyState]);
+  // useEffect(() => {
+  //   if (lastMessage) {
+  //     const arr = chunkArray(JSON.parse(lastMessage.data), PAGE_SIZE);
+  //     setFloorList(arr);
+  //   }
+  //   return () => {
+
+  //   };
+  // }, [lastMessage]);
+
   return (
     <BorderBox11 title="请选择要到的楼层">
-      <Carousel afterChange={onChange}>
-        <div>
-          <div className="kb-flex">
-            <div className="kb-item">1</div>
-            <div className="kb-item">2</div>
-            <div className="kb-item">3</div>
-            <div className="kb-item">4</div>
-            <div className="kb-item">5</div>
-            <div className="kb-item">6</div>
-            <div className="kb-item kb-item-selected">7</div>
-            <div className="kb-item">8</div>
-            <div className="kb-item">9</div>
-            <div className="kb-item">10</div>
-            <div className="kb-item">11</div>
-            <div className="kb-item">12</div>
-            <div className="kb-item">13</div>
-            <div className="kb-item">14</div>
-            <div className="kb-item">15</div>
-            <div className="kb-item">16</div>
-            <div className="kb-item">17</div>
-            <div className="kb-item">18</div>
-            <div className="kb-item">19</div>
-            <div className="kb-item">20</div>
-          </div>
-        </div>
-        <div>
-          <div className="kb-flex">
-            <div className="kb-item">21</div>
-            <div className="kb-item">22</div>
-            <div className="kb-item">23</div>
-            <div className="kb-item">24</div>
-            <div className="kb-item">25</div>
-            <div className="kb-item">26</div>
-            <div className="kb-item">27</div>
-            <div className="kb-item">28</div>
-            <div className="kb-item">29</div>
-            <div className="kb-item">30</div>
-            <div className="kb-item">31</div>
-            <div className="kb-item">32</div>
-            <div className="kb-item">33</div>
-            <div className="kb-item">34</div>
-            <div className="kb-item">35</div>
-            <div className="kb-item">36</div>
-            <div className="kb-item">37</div>
-            <div className="kb-item">38</div>
-            <div className="kb-item">39</div>
-            <div className="kb-item">40</div>
-          </div>
-        </div>
-      </Carousel>
+      <div className="kb-container">
+        <Carousel draggable afterChange={onChange} style={{ height: winHeight }}>
+          {floorList.map((f, index) => (
+            <div key={`kb-${index}`}>
+              <Row gutter={[16, 16]} justify="start" align="middle" className="kb-panel">
+                {f.map((d, i) => (
+                  <Col span={6} key={`kb-item-${i}`}>
+                    <div className="kb-item1">{d}</div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))}
+        </Carousel>
+      </div>
     </BorderBox11>
   );
 }

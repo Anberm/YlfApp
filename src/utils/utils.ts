@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import { parse } from 'querystring';
 import pathRegexp from 'path-to-regexp';
 import { Route } from '@/models/connect';
@@ -62,4 +63,21 @@ export const getRouteAuthority = (path: string, routeData: Route[]) => {
     }
   });
   return authorities;
+};
+
+export const chunkArray = (arr: any[], size: number) => {
+  const objArr = [];
+  let index = 0;
+  const objArrLen = arr.length / size;
+  for (let i = 0; i < objArrLen; i++) {
+    const arrTemp = [];
+    for (let j = 0; j < size; j++) {
+      arrTemp[j] = arr[index++];
+      if (index === arr.length) {
+        break;
+      }
+    }
+    objArr[i] = arrTemp;
+  }
+  return objArr;
 };

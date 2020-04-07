@@ -6,6 +6,7 @@ import styles from './index.less';
 
 export default () => (
   <FullScreenContainer className={styles.elevator}>
+    {/* <div className={styles.elevator}> */}
     <div className={styles.elevator_flex}>
       <div className={styles.elevator_left}>
         <FWatcher />
@@ -14,5 +15,6 @@ export default () => (
         <FKeyboard />
       </div>
     </div>
+    {/* </div> */}
   </FullScreenContainer>
 );
