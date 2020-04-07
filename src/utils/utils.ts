@@ -81,3 +81,12 @@ export const chunkArray = (arr: any[], size: number) => {
   }
   return objArr;
 };
+let lmTimeOutHav:any = 0;
+export const lmTimeOut = (cb: () => void, timeout: number = 0) => {
+  if (lmTimeOutHav) {
+    clearTimeout(lmTimeOutHav);
+  }
+  lmTimeOutHav = setTimeout(() => {
+    cb();
+  }, timeout);
+};
