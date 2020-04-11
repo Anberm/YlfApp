@@ -1644,7 +1644,7 @@
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-"@jiaminghi/c-render@*":
+"@jiaminghi/c-render@*", "@jiaminghi/c-render@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@jiaminghi/c-render/-/c-render-0.4.3.tgz#982ebd8f71b443bb9507834227834973ebd9b6d8"
   integrity sha512-FJfzj5hGj7MLqqqI2D7vEzHKbQ1Ynnn7PJKgzsjXaZpJzTqs2Yw5OSeZnm6l7Qj7jyPAP53lFvEQNH4o4j6s+Q==
@@ -1654,7 +1654,7 @@
     "@jiaminghi/color" "*"
     "@jiaminghi/transition" "*"
 
-"@jiaminghi/charts@^0.2":
+"@jiaminghi/charts@^0.2", "@jiaminghi/charts@^0.2.12":
   version "0.2.12"
   resolved "https://registry.yarnpkg.com/@jiaminghi/charts/-/charts-0.2.12.tgz#02e42f7068981155c49c2ec7c2683ea571e0a2a8"
   integrity sha512-M++pdGrvazODF+27ROyn/jVwChFX8+4Tja0X3ibfye9EOO/ktzN+iMae0PIBSwW1F6X1diwldVYpfgSmXXJMMg==
@@ -1662,7 +1662,7 @@
     "@babel/runtime" "^7.5.5"
     "@jiaminghi/c-render" "*"
 
-"@jiaminghi/color@*":
+"@jiaminghi/color@*", "@jiaminghi/color@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@jiaminghi/color/-/color-0.1.1.tgz#bddf9012dfce6982d3829a983ffeb91ee9dda7b6"
   integrity sha512-M09+Sb5HGqVim0zo+nG5gU1v+6gXT8ptr0BZR6dMGt83XmCJgnZtO8s7llTW4hLFFFM5co6geZvTekqLpSPAAQ==

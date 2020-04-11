@@ -4,11 +4,17 @@ import { Carousel, Row, Col } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { chunkArray, lmTimeOut } from '@/utils/utils';
 import KeyBtn from './btn';
+import Decoration12 from './decoration12';
 
 const READY_STATE_OPEN = 1;
 const PAGE_SIZE = 20;
 const BOX_TITLE = '请选择要到的楼层';
 export default function FKeyboard() {
+  const [videoStyle, setVideoStyle] = useState({
+    width: '660px',
+    height: '660px',
+    margin: '10% auto',
+  });
   const [boxTitle, setBoxTitle] = useState(BOX_TITLE);
   const [clickedList, setClickedList] = useState<number[]>([]);
   const [floorList, setFloorList] = useState<any[][]>([
@@ -16,6 +22,7 @@ export default function FKeyboard() {
     [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
   ]);
   const [winHeight, setWinHeight] = useState(window.innerHeight - 85);
+  const [arrived, setArrived] = useState(false);
   const [sendMessage, lastMessage, readyState] = useLmWebSocket('wss://echo.websocket.org');
 
   const onChange = (index: number) => {
@@ -55,8 +62,10 @@ export default function FKeyboard() {
       setClickedList([...clickedList, data]);
     }
     setBoxTitle(`到${data}层`);
+    setArrived(true);
     lmTimeOut(() => {
       setBoxTitle(BOX_TITLE);
+      setArrived(false);
     }, 1000 * 2);
   };
 
@@ -65,21 +74,28 @@ export default function FKeyboard() {
   return (
     <BorderBox11 title={boxTitle}>
       <div className="kb-container">
-        <Carousel draggable afterChange={onChange} style={{ height: winHeight }}>
-          {floorList.map((f, index) => (
-            <div key={`kb-${index}`}>
-              <Row gutter={[16, 16]} justify="start" align="middle" className="kb-panel">
-                {f.map((d, i) => (
-                  <Col span={6} key={`kb-item-${i}`}>
-                    <KeyBtn clickedList={clickedList} data={d} onKeyClick={onKeyClick}>
-                      {d}
-                    </KeyBtn>
-                  </Col>
-                ))}
-              </Row>
-            </div>
-          ))}
-        </Carousel>
+        {arrived && (
+          <Decoration12 style={videoStyle} dur={2}>
+            <div className="arrived-tips">B</div>
+          </Decoration12>
+        )}
+        {!arrived && (
+          <Carousel draggable afterChange={onChange} style={{ height: winHeight }}>
+            {floorList.map((f, index) => (
+              <div key={`kb-${index}`}>
+                <Row gutter={[16, 16]} justify="start" align="middle" className="kb-panel">
+                  {f.map((d, i) => (
+                    <Col span={6} key={`kb-item-${i}`}>
+                      <KeyBtn clickedList={clickedList} data={d} onKeyClick={onKeyClick}>
+                        {d}
+                      </KeyBtn>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            ))}
+          </Carousel>
+        )}
       </div>
     </BorderBox11>
   );

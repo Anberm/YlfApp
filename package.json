@@ -58,6 +58,9 @@
     "not ie <= 10"
   ],
   "dependencies": {
+    "@jiaminghi/c-render": "^0.4.3",
+    "@jiaminghi/charts": "^0.2.12",
+    "@jiaminghi/color": "^0.1.1",
     "auto-launch": "^5.0.5",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
