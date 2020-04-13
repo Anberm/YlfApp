@@ -4,7 +4,7 @@ import { Carousel, Row, Col } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { chunkArray, lmTimeOut } from '@/utils/utils';
 import KeyBtn from './btn';
-import Decoration12 from './decoration12';
+import Decoration9 from '@jiaminghi/data-view-react/es/decoration9';
 
 const READY_STATE_OPEN = 1;
 const PAGE_SIZE = 20;
@@ -75,9 +75,9 @@ export default function FKeyboard() {
     <BorderBox11 title={boxTitle}>
       <div className="kb-container">
         {arrived && (
-          <Decoration12 style={videoStyle} dur={2}>
+          <Decoration9 style={videoStyle} dur={2}>
             <div className="arrived-tips">B</div>
-          </Decoration12>
+          </Decoration9>
         )}
         {!arrived && (
           <Carousel draggable afterChange={onChange} style={{ height: winHeight }}>

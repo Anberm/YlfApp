@@ -6,7 +6,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useMemo, useRef } from 'react';
 
-
 const defaultColor = ['rgba(3, 166, 224, 0.8)', 'rgba(3, 166, 224, 0.5)'];
 
 const svgWH = [100, 100];
@@ -42,54 +41,9 @@ const Decoration12 = (props: Decoration12Props) => {
         style={{ transform: `scale(${svgScale[0]},${svgScale[1]})` }}
       >
         <defs>
-          <polygon id={polygonIdRef.current} points="15, 46.5, 21, 47.5, 21, 52.5, 15, 53.5" />
+          <polygon id={polygonIdRef.current} points="7, 46.5, 12.5 47.5, 12.5, 52.5, 7, 53.5" />
         </defs>
 
-        {/* <circle
-          cx="50"
-          cy="50"
-          r="45"
-          fill="transparent"
-          stroke={mergedColor[1]}
-          strokeWidth="10"
-          strokeDasharray="80, 100, 30, 100"
-        >
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            values="0 50 50;360 50 50"
-            dur={`${dur}s`}
-            repeatCount="indefinite"
-          />
-        </circle>
-
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          fill="transparent"
-          stroke={mergedColor[0]}
-          strokeWidth="6"
-          strokeDasharray="50, 66, 100, 66"
-        >
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            values="0 50 50;-360 50 50"
-            dur={`${dur}s`}
-            repeatCount="indefinite"
-          />
-        </circle>
-
-        <circle
-          cx="50"
-          cy="50"
-          r="38"
-          fill="transparent"
-          stroke={fade(mergedColor[1] || defaultColor[1], 30)}
-          strokeWidth="1"
-          strokeDasharray="5, 1"
-        /> */}
         {new Array(20).fill(0).map((foo, i) => (
           <use
             key={i}
@@ -111,7 +65,7 @@ const Decoration12 = (props: Decoration12Props) => {
         <circle
           cx="50"
           cy="50"
-          r="26"
+          r="35"
           fill="transparent"
           stroke={fade(mergedColor[1] || defaultColor[1], 30)}
           strokeWidth="1"

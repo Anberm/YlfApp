@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import Decoration11 from '@jiaminghi/data-view-react/es/decoration11';
-import Decoration9 from '@jiaminghi/data-view-react/es/decoration9';
+
+import Decoration12 from '../keyboard/decoration12';
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function FWatcher() {
   const videoRef = useRef<any>();
-  const [videoStyle, setVideoStyle] = useState({ width: '400px', height: '400px' });
+  const [videoStyle, setVideoStyle] = useState({ width: '360px', height: '360px' });
   const openVideo = () => {
     // 媒体对象
     navigator.getUserMedia(
@@ -45,11 +46,11 @@ export default function FWatcher() {
         <Decoration11 style={{ height: '80px' }}>请直视摄像头</Decoration11>
       </div>
       <div className="w-flex">
-        <Decoration9 style={videoStyle} dur={4}>
+        <Decoration12 style={videoStyle} dur={4}>
           <div>
             <video ref={videoRef} autoPlay playsInline />
           </div>
-        </Decoration9>
+        </Decoration12>
       </div>
     </div>
   );
