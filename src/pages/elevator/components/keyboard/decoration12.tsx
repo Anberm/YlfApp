@@ -21,7 +21,7 @@ const Decoration12 = (props: Decoration12Props) => {
   const { children, className = '', style = null, color = [], dur = 3 } = props;
   const { width, height, domRef } = useAutoResize();
 
-  const polygonIdRef = useRef(`decoration-9-polygon-${Date.now()}`);
+  const polygonIdRef = useRef(`decoration-12-polygon-${Date.now()}`);
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color]);
 
@@ -43,25 +43,6 @@ const Decoration12 = (props: Decoration12Props) => {
         <defs>
           <polygon id={polygonIdRef.current} points="7, 46.5, 12.5 47.5, 12.5, 52.5, 7, 53.5" />
         </defs>
-
-        {/* {new Array(20).fill(0).map((foo, i) => (
-          <use
-            key={i}
-            href={`#${polygonIdRef.current}`}
-            stroke={mergedColor[1]}
-            fill={Math.random() > 0.4 ? 'transparent' : mergedColor[0]}
-          >
-            <animateTransform
-              attributeName="transform"
-              type="rotate"
-              values="0 50 50;360 50 50"
-              dur={`${dur}s`}
-              begin={`${(i * dur) / 20}s`}
-              repeatCount="indefinite"
-            />
-          </use>
-        ))} */}
-
         <circle
           cx="50"
           cy="50"
