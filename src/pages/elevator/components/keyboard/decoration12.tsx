@@ -65,7 +65,7 @@ const Decoration12 = (props: Decoration12Props) => {
         <circle
           cx="50"
           cy="50"
-          r="35"
+          r="40"
           fill="transparent"
           stroke={fade(mergedColor[1] || defaultColor[1], 30)}
           strokeWidth="1"
