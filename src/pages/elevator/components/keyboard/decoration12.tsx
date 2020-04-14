@@ -44,7 +44,7 @@ const Decoration12 = (props: Decoration12Props) => {
           <polygon id={polygonIdRef.current} points="7, 46.5, 12.5 47.5, 12.5, 52.5, 7, 53.5" />
         </defs>
 
-        {new Array(20).fill(0).map((foo, i) => (
+        {/* {new Array(20).fill(0).map((foo, i) => (
           <use
             key={i}
             href={`#${polygonIdRef.current}`}
@@ -60,7 +60,7 @@ const Decoration12 = (props: Decoration12Props) => {
               repeatCount="indefinite"
             />
           </use>
-        ))}
+        ))} */}
 
         <circle
           cx="50"

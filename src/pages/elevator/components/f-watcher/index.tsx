@@ -34,14 +34,14 @@ import Decoration12 from '../keyboard/decoration12';
 // }
 export default function FWatcher() {
   const videoRef = useRef<any>();
-  const [videoStyle, setVideoStyle] = useState({ width: '360px', height: '360px' });
+  const [videoStyle, setVideoStyle] = useState({ width: '360px', height: '360px',margin: '10% auto', });
   const openVideo = async () => {
     const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput');
     // 媒体对象
     navigator.getUserMedia(
       {
         video: {
-          deviceId:devices[0].deviceId
+          deviceId:devices[1].deviceId
         }, // 使用摄像头对象
         audio: false, // 不适用音频
       },
@@ -65,6 +65,7 @@ export default function FWatcher() {
     setVideoStyle({
       width: `${w}px`,
       height: `${w}px`,
+      margin: '10% auto',
     });
   };
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function FWatcher() {
         <Decoration11 style={{ height: '80px' }}>请直视摄像头</Decoration11>
       </div>
       <div className="w-flex">
-        <Decoration12 style={videoStyle} dur={4}>
+        <Decoration12 style={videoStyle} dur={5}>
           <div>
             <video ref={videoRef} autoPlay playsInline />
           </div>

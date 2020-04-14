@@ -1,10 +1,10 @@
 import useLmWebSocket from '@/utils/hooks/use-lm-websocket';
+import { lmTimeOut } from '@/utils/utils';
 import BorderBox11 from '@jiaminghi/data-view-react/es/borderBox11';
-import { Carousel, Row, Col } from 'antd';
+import { Carousel, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { chunkArray, lmTimeOut } from '@/utils/utils';
 import KeyBtn from './btn';
-import Decoration9 from '@jiaminghi/data-view-react/es/decoration9';
+import Decoration12 from './decoration12';
 
 const READY_STATE_OPEN = 1;
 const PAGE_SIZE = 20;
@@ -33,11 +33,22 @@ export default function FKeyboard() {
     const listener = () => {
       setWinHeight(window.innerHeight - 85);
     };
+    calculateWidth();
     window.addEventListener('resize', listener);
     return () => {
       window.removeEventListener('resize', listener);
     };
   }, []);
+
+  const calculateWidth = () => {
+    const winWidth = document.body.clientWidth;
+    const w = Math.floor(winWidth * 0.4);
+    setVideoStyle({
+      width: `${w}px`,
+      height: `${w}px`,
+      margin: '10% auto',
+    });
+  };
 
   // useEffect(() => {
   //   if (readyState === READY_STATE_OPEN) {
@@ -75,9 +86,9 @@ export default function FKeyboard() {
     <BorderBox11 title={boxTitle}>
       <div className="kb-container">
         {arrived && (
-          <Decoration9 style={videoStyle} dur={2}>
+          <Decoration12 style={videoStyle} dur={2}>
             <div className="arrived-tips">B</div>
-          </Decoration9>
+          </Decoration12>
         )}
         {!arrived && (
           <Carousel draggable afterChange={onChange} style={{ height: winHeight }}>

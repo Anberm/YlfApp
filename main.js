@@ -40,7 +40,7 @@ function initialize() {
       // minWidth: 1024,
       // maxHeight: 768,
       // minHeight: 768,
-      fullscreen: false,
+      fullscreen: true,
       center: true,
       // resizable: false,
       webPreferences: {

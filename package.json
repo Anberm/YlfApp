@@ -26,7 +26,7 @@
     "el": "npm-run-all el:watch el:dev",
     "pack": "electron-builder --dir",
     "electron-builder": "electron-builder --win",
-    "release": "npm run build && electron-builder --win",
+    "release": "npm run build && electron-builder --linux",
     "test": "umi test",
     "test:all": "node ./tests/run-tests.js",
     "test:component": "umi test ./src/components",
