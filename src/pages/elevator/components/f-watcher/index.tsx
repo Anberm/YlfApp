@@ -2,6 +2,7 @@
 import Decoration11 from '@jiaminghi/data-view-react/es/decoration11';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { notification } from 'antd';
 import Decoration12 from '../keyboard/decoration12';
 // declare const navigator: any;
 // 访问用户媒体设备的兼容方法
@@ -34,14 +35,37 @@ import Decoration12 from '../keyboard/decoration12';
 // }
 export default function FWatcher() {
   const videoRef = useRef<any>();
-  const [videoStyle, setVideoStyle] = useState({ width: '360px', height: '360px',margin: '10% auto', });
+  const [videoStyle, setVideoStyle] = useState({
+    width: '360px',
+    height: '360px',
+    margin: '10% auto',
+  });
   const openVideo = async () => {
-    const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput');
+    const devices = (await navigator.mediaDevices.enumerateDevices()).filter(
+      d => d.kind === 'videoinput',
+    );
+    let mainDeviceId = '';
+    let exactDeviceId = '';
+    if (devices.length <= 0) {
+      notification.error({
+        message: 'No camera found!',
+      });
+      return;
+    }
+    if (devices.length > 1) {
+      mainDeviceId = devices[1].deviceId;
+      exactDeviceId = devices[0].deviceId;
+    } else {
+      mainDeviceId = devices[0].deviceId;
+    }
+    getVideo(mainDeviceId, exactDeviceId);
+  };
+  const getVideo = (mainDeviceId: string, exactDeviceId: string | null) => {
     // 媒体对象
     navigator.getUserMedia(
       {
         video: {
-          deviceId:devices[1].deviceId
+          deviceId: mainDeviceId,
         }, // 使用摄像头对象
         audio: false, // 不适用音频
       },
@@ -56,6 +80,9 @@ export default function FWatcher() {
       (error: any) => {
         // error.code
         console.log(error);
+        if (exactDeviceId) {
+          getVideo(exactDeviceId, null);
+        }
       },
     );
   };
