@@ -1,10 +1,11 @@
 import useLmWebSocket from '@/utils/hooks/use-lm-websocket';
-import { lmTimeOut } from '@/utils/utils';
+import { lmTimeOut, chunkArray } from '@/utils/utils';
 import BorderBox11 from '@jiaminghi/data-view-react/es/borderBox11';
 import { Carousel, Col, Row } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import KeyBtn from './btn';
 import Decoration12 from './decoration12';
+import { queryFloor } from '@/services/floor';
 
 const READY_STATE_OPEN = 1;
 const PAGE_SIZE = 20;
@@ -20,7 +21,9 @@ export default function FKeyboard() {
   const [floorList, setFloorList] = useState<any[][]>([[1, 2, 3, 4, 5]]);
   const [winHeight, setWinHeight] = useState(window.innerHeight - 85);
   const [arrived, setArrived] = useState(false);
-  const [sendMessage, lastMessage, readyState] = useLmWebSocket('wss://echo.websocket.org');
+  const [sendMessage, lastMessage, readyState] = useLmWebSocket(
+    'ws://127.0.0.1:8201/app/sch/tofloor ',
+  );
   const clickedRef = useRef<number[]>(clickedList);
   const onChange = (index: number) => {
     console.log(index);
@@ -30,6 +33,11 @@ export default function FKeyboard() {
     const listener = () => {
       setWinHeight(window.innerHeight - 85);
     };
+
+    queryFloor().then(f => {
+      console.log(f);
+    });
+
     calculateWidth();
     window.addEventListener('resize', listener);
     return () => {
@@ -47,22 +55,13 @@ export default function FKeyboard() {
     });
   };
 
-  // useEffect(() => {
-  //   if (readyState === READY_STATE_OPEN) {
-  //     sendMessage(
-  //       '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]',
-  //     );
-  //   }
-  // }, [readyState]);
-  // useEffect(() => {
-  //   if (lastMessage) {
-  //     const arr = chunkArray(JSON.parse(lastMessage.data), PAGE_SIZE);
-  //     setFloorList(arr);
-  //   }
-  //   return () => {
-
-  //   };
-  // }, [lastMessage]);
+  useEffect(() => {
+    if (lastMessage) {
+      const arr = chunkArray(JSON.parse(lastMessage.data), PAGE_SIZE);
+      setFloorList(arr);
+    }
+    return () => {};
+  }, [lastMessage]);
 
   const onKeyClick = (data: number) => {
     const isInclude = clickedList.includes(data);
