@@ -2,7 +2,7 @@ import useLmWebSocket from '@/utils/hooks/use-lm-websocket';
 import { lmTimeOut } from '@/utils/utils';
 import BorderBox11 from '@jiaminghi/data-view-react/es/borderBox11';
 import { Carousel, Col, Row } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import KeyBtn from './btn';
 import Decoration12 from './decoration12';
 
@@ -17,14 +17,11 @@ export default function FKeyboard() {
   });
   const [boxTitle, setBoxTitle] = useState(BOX_TITLE);
   const [clickedList, setClickedList] = useState<number[]>([]);
-  const [floorList, setFloorList] = useState<any[][]>([
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-    [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
-  ]);
+  const [floorList, setFloorList] = useState<any[][]>([[1, 2, 3, 4, 5]]);
   const [winHeight, setWinHeight] = useState(window.innerHeight - 85);
   const [arrived, setArrived] = useState(false);
   const [sendMessage, lastMessage, readyState] = useLmWebSocket('wss://echo.websocket.org');
-
+  const clickedRef = useRef<number[]>(clickedList);
   const onChange = (index: number) => {
     console.log(index);
   };
@@ -70,43 +67,62 @@ export default function FKeyboard() {
   const onKeyClick = (data: number) => {
     const isInclude = clickedList.includes(data);
     if (!isInclude) {
-      setClickedList([...clickedList, data]);
+      setClickedList(c => {
+        const l = [...c];
+        l.push(data);
+
+        console.log(l);
+
+        return l;
+      });
     }
     setBoxTitle(`到${data}层`);
     setArrived(true);
     lmTimeOut(() => {
       setBoxTitle(BOX_TITLE);
       setArrived(false);
+      setTimeout(() => {
+        arriveFloor(data);
+      }, 1000 * 6);
     }, 1000 * 2);
   };
-
-  const arriveFloor = () => {};
+  const arriveFloor = (data: number) => {
+    setClickedList(c => {
+      const l = [...c];
+      const index = l.findIndex(e => e === data);
+      l.splice(index, 1);
+      console.log(l);
+      return l;
+    });
+  };
 
   return (
     <BorderBox11 title={boxTitle}>
       <div className="kb-container">
-        {arrived && (
-          <Decoration12 style={videoStyle} dur={2}>
-            <div className="arrived-tips">B</div>
-          </Decoration12>
-        )}
-        {!arrived && (
-          <Carousel draggable afterChange={onChange} style={{ height: winHeight }}>
-            {floorList.map((f, index) => (
-              <div key={`kb-${index}`}>
-                <Row gutter={[16, 16]} justify="start" align="middle" className="kb-panel">
-                  {f.map((d, i) => (
-                    <Col span={6} key={`kb-item-${i}`}>
-                      <KeyBtn clickedList={clickedList} data={d} onKeyClick={onKeyClick}>
-                        {d}
-                      </KeyBtn>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            ))}
-          </Carousel>
-        )}
+        <Decoration12 style={videoStyle} dur={2} className={arrived ? '' : 'arrived-hidden'}>
+          <div className="arrived-tips">B</div>
+        </Decoration12>
+
+        <Carousel
+          draggable
+          afterChange={onChange}
+          style={{ height: winHeight }}
+          className={arrived ? 'arrived-hidden' : ''}
+        >
+          {floorList.map((f, index) => (
+            <div key={`kb-${index}`}>
+              <Row gutter={[16, 16]} justify="start" align="middle" className="kb-panel">
+                {f.map((d, i) => (
+                  <Col span={6} key={`kb-item-${i}`}>
+                    <KeyBtn clickedList={clickedList} data={d} onKeyClick={onKeyClick}>
+                      {d}
+                    </KeyBtn>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))}
+        </Carousel>
       </div>
     </BorderBox11>
   );
