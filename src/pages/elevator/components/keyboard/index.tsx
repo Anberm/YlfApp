@@ -21,8 +21,11 @@ export default function FKeyboard() {
   const [floorList, setFloorList] = useState<any[][]>([[1, 2, 3, 4, 5]]);
   const [winHeight, setWinHeight] = useState(window.innerHeight - 85);
   const [arrived, setArrived] = useState(false);
-  const [sendMessage, lastMessage, readyState] = useLmWebSocket(
+  const [floorSend, floorMsg, floorState] = useLmWebSocket(
     'ws://127.0.0.1:8201/app/sch/tofloor ',
+  );
+  const [dataSend ,dataMsg, dataState] = useLmWebSocket(
+    'ws://127.0.0.1:8202/app/sch/changedata ',
   );
   const clickedRef = useRef<number[]>(clickedList);
   const onChange = (index: number) => {
@@ -35,6 +38,7 @@ export default function FKeyboard() {
     };
 
     queryFloor().then(f => {
+      console.log('33333333333');
       console.log(f);
     });
 
@@ -56,12 +60,22 @@ export default function FKeyboard() {
   };
 
   useEffect(() => {
-    if (lastMessage) {
-      const arr = chunkArray(JSON.parse(lastMessage.data), PAGE_SIZE);
-      setFloorList(arr);
+    console.log(floorMsg);
+    if (floorMsg) {
+      // const arr = chunkArray(JSON.parse(lastMessage.data), PAGE_SIZE);
+      // setFloorList(arr);
     }
     return () => {};
-  }, [lastMessage]);
+  }, [floorMsg]);
+
+  useEffect(() => {
+    console.log(dataMsg);
+    if (dataMsg) {
+      // const arr = chunkArray(JSON.parse(lastMessage.data), PAGE_SIZE);
+      // setFloorList(arr);
+    }
+    return () => {};
+  }, [dataMsg]);
 
   const onKeyClick = (data: number) => {
     const isInclude = clickedList.includes(data);

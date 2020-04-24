@@ -1,5 +1,9 @@
 import request from '@/utils/request';
 
 export async function queryFloor(): Promise<any> {
-  return request('http://127.0.0.1/app/sch/tofloor?schId=1');
+  return request.post('http://127.0.0.1:9100/Sch/getSchAll',{
+    data:{
+      schId:'5'
+    }
+  });
 }

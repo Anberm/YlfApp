@@ -39,6 +39,6 @@
   },
   "linux": {
     "category": "Graphics",
-    "target": ["deb", "tar.gz", "AppImage"]
+    "target": ["AppImage"]
   }
 }
